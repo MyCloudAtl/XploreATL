@@ -1,10 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import User
 
 class Location(models.Model):
-    name = models.CharField(max_length=255)
-    county = models.CharField(max_length=100)
-    city = models.CharField(max_length=100)
+    county = models.CharField(max_length=255)
     state = models.CharField(max_length=100)
 
     def __str__(self):
@@ -50,7 +47,7 @@ class Hotspot(models.Model):
         return self.name
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    # user = models.OneToOneField(User, on_delete=models.CASCADE)
     favorite_eateries = models.ManyToManyField(Eatery, blank=True, related_name='favorited_by')
     favorite_hotspots = models.ManyToManyField(Hotspot, blank=True, related_name='favorited_by')
     bookmarked_hotspots = models.ManyToManyField(Hotspot, blank=True, related_name='bookmarked_by')
