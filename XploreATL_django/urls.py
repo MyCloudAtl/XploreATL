@@ -27,4 +27,5 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('accounts/profile/', views.profile, name="profile"),
     path('', include('XploreATL.urls')),
+    path('api-auth', include('rest_framework.urls', namespace='rest_framework'))
     ]

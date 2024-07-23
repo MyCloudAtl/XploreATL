@@ -12,7 +12,7 @@ class EaterySerializer(serializers.HyperlinkedModelSerializer):
     )
     class Meta:
         model = Eatery
-        fields = '__all__'
+        fields = ('location','location_id','image','category','name','address','city','state','zip_code','cuisine','phone_number','website','operations_hours','price_range','description')
 
 class HotspotSerializer(serializers.HyperlinkedModelSerializer):
     location = serializers.HyperlinkedRelatedField(
@@ -38,6 +38,8 @@ class ProfileSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['favorite_eateries', 'favorite_hotspots', 'bookmarked_eateries', 'bookmarked_hotspots']
 
 class LocationSerializer(serializers.HyperlinkedModelSerializer):
+    # eateries = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    # hotspots = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     eatery = EaterySerializer(
         many=True,
         read_only=True
@@ -48,4 +50,4 @@ class LocationSerializer(serializers.HyperlinkedModelSerializer):
     )
     class Meta:
         model = Location
-        fields = ['id', 'name', 'county', 'city', 'state']
+        fields = ['id', 'county', 'state']

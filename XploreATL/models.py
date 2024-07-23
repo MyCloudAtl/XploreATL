@@ -1,11 +1,12 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Location(models.Model):
     county = models.CharField(max_length=255)
     state = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.name
+        return f"{self.county}, {self.state}"
 
 class Eatery(models.Model):
     location = models.ForeignKey(Location, on_delete=models.CASCADE, related_name='eateries')
@@ -19,8 +20,7 @@ class Eatery(models.Model):
     cuisine = models.CharField(max_length=255, blank=True)
     phone_number = models.CharField(max_length=20, blank=True)
     website = models.URLField(blank=True)
-    opening_time = models.TimeField(blank=True, null=True)
-    closing_time = models.TimeField(blank=True, null=True)
+    operations_hours = models.TextField(blank=True, null=True)
     price_range = models.CharField(max_length=10, choices=[('$-$$', 'Low to Medium'), ('$$-$$$', 'Medium to High'), ('$$$-$$$$', 'High End')], blank=True)
     description = models.TextField(blank=True, default= 'no description')
 
@@ -38,8 +38,7 @@ class Hotspot(models.Model):
     zip_code = models.CharField(max_length=20)
     phone_number = models.CharField(max_length=20, blank=True)
     website = models.URLField(blank=True)
-    opening_time = models.TimeField(blank=True, null=True)
-    closing_time = models.TimeField(blank=True, null=True)
+    operations_hours = models.TextField(blank=True, null=True)
     price_range = models.CharField(max_length=10, choices=[('$-$$', 'Low to Medium'), ('$$-$$$', 'Medium to High'), ('$$$-$$$$', 'High End')], blank=True)
     description = models.TextField(blank=True, default= 'no description')
 
@@ -47,7 +46,7 @@ class Hotspot(models.Model):
         return self.name
 
 class Profile(models.Model):
-    # user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     favorite_eateries = models.ManyToManyField(Eatery, blank=True, related_name='favorited_by')
     favorite_hotspots = models.ManyToManyField(Hotspot, blank=True, related_name='favorited_by')
     bookmarked_hotspots = models.ManyToManyField(Hotspot, blank=True, related_name='bookmarked_by')
