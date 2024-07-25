@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import NavBar from './NavBar'
 import { Link } from 'react-router-dom'
 
 export default function EateryList() {
@@ -23,10 +24,11 @@ export default function EateryList() {
 
   return (
     <div className="EateryList">
+        {<NavBar />}
         <h1>EateryList</h1>
         <ul>
        {eateries.map(eatery => (
-           <li key={eatery.id}>
+          <li key={eatery.id}>
            <img src={eatery.image} alt={eatery.name} />
            <div>
              <h2>Name: {eatery.name}</h2>

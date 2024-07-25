@@ -159,7 +159,14 @@ REST_FRAMEWORK = {
     ]
 }
 
-SOCIALACCOUNT_PROVIDERS = {}
+SOCIALACCOUNT_PROVIDERS = {
+    #  "google": {
+    #     "APP": {
+    #         "client_id": "123",
+    #         "secret": "456",
+    #     }
+    # }
+}
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 

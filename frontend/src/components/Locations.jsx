@@ -6,7 +6,16 @@ export default function Locations() {
 
   return (
     <div className="Locations">
-        <h1>Locations</h1>
+        <h2>Locations</h2>
+        {/* <Link to="/">
+          <button>Home</button>
+        </Link>
+        <Link to="/eateries">
+          <button>Eateries</button>
+        </Link>
+        <Link to="/hotspots">
+          <button>HotSpots</button>
+        </Link> */}
     </div>
-  )
+    )
 }

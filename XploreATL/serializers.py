@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Eatery, Hotspot, Profile, Location
+from .models import Eatery, Hotspot, Profile, Location, User
 
 class EaterySerializer(serializers.HyperlinkedModelSerializer):
     location = serializers.HyperlinkedRelatedField(
@@ -25,17 +25,17 @@ class HotspotSerializer(serializers.HyperlinkedModelSerializer):
     )
     class Meta:
         model = Hotspot
-        fields = '__all__'
+        fields = ('location','location_id','image','category','name','address','city','state','zip_code','phone_number','website','operations_hours','price_range','description')
 
 class ProfileSerializer(serializers.HyperlinkedModelSerializer):
-    # user = UserSerializer()
+    user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
     favorite_eateries = EaterySerializer(many=True, read_only=True)
     favorite_hotspots = HotspotSerializer(many=True, read_only=True)
     bookmarked_eateries = EaterySerializer(many=True, read_only=True)
     bookmarked_hotspots = HotspotSerializer(many=True, read_only=True)
     class Meta:
         model = Profile
-        fields = ['favorite_eateries', 'favorite_hotspots', 'bookmarked_eateries', 'bookmarked_hotspots']
+        fields = ['user','favorite_eateries', 'favorite_hotspots', 'bookmarked_eateries', 'bookmarked_hotspots']
 
 class LocationSerializer(serializers.HyperlinkedModelSerializer):
     # eateries = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
@@ -51,3 +51,9 @@ class LocationSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Location
         fields = ['id', 'county', 'state']
+
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+
+    class Meta:
+        model = Location
+        fields = ('username')
