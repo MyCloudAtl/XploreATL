@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib.auth.models import User
 
 class Location(models.Model):
     county = models.CharField(max_length=255)
@@ -44,6 +43,23 @@ class Hotspot(models.Model):
 
     def __str__(self):
         return self.name
+    
+class Rating(models.Model):
+    RATING_CHOICES = [(1, '1 Star'), (2, '2 Stars'), (3, '3 Stars'), (4, '4 Stars'), (5, '5 Stars')]
+    rating = models.IntegerField(choices=RATING_CHOICES)
+    date_posted = models.DateTimeField(auto_now_add=True)
+    eatery = models.ForeignKey(Eatery, on_delete=models.CASCADE, related_name='reviews', null=True, blank=True)
+    hotspot = models.ForeignKey(Hotspot, on_delete=models.CASCADE, related_name='reviews', null=True, blank=True)
+    
+    def __str__(self):
+        return f"{self.rating} Stars - {self.eatery or self.hotspot}"
+    
+class User(models.Model):
+    username = models.CharField(max_length=255)
+    password = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.username
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

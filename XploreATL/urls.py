@@ -9,6 +9,6 @@ urlpatterns = [
     path('hotspots/<int:pk>', views.HotspotDetail.as_view(), name="hotspot_detail"),
     path('locations/', views.LocationList.as_view(), name="location_list"),
     path('locations/<int:pk>', views.LocationDetail.as_view(), name="location_detail"),
-    path('profiles/', views.ProfileList.as_view(), name="profile_list"),
-    path('profiles/<int:pk>', views.ProfileDetail.as_view(), name="profile_detail"),
+    path('ratings/', views.RatingList.as_view(), name="rating_list"),
+    path('ratings/<int:pk>', views.RatingDetail.as_view(), name="rating_detail"),
 ]
