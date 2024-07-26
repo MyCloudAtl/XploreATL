@@ -10,7 +10,6 @@ export default function Home() {
 
   return (
     <div className="Home">
-
       <div className="Main">
         <header className="Header">
           <h1>XploreATL</h1>

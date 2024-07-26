@@ -11,6 +11,8 @@ urlpatterns = [
     path('locations/<int:pk>', views.LocationDetail.as_view(), name="location_detail"),
     path('ratings/', views.RatingList.as_view(), name="rating_list"),
     path('ratings/<int:pk>', views.RatingDetail.as_view(), name="rating_detail"),
-    path('users/', views.UserList.as_view(), name="user_list"),
-    path('users/<int:pk>', views.UserDetail.as_view(), name="user_detail"),
+    path('customusers/', views.CustomUserList.as_view(), name="customuser_list"),
+    path('customusers/<int:pk>', views.CustomUserDetail.as_view(), name="customuser_detail"),
+    path('profiles/', views.ProfileList.as_view(), name="profile_list"),
+    path('profiles/<int:pk>', views.ProfileDetail.as_view(), name="profile_detail"),
 ]

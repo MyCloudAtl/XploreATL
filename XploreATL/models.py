@@ -54,20 +54,21 @@ class Rating(models.Model):
     def __str__(self):
         return f"{self.rating} Stars - {self.eatery or self.hotspot}"
     
-class User(models.Model):
+class CustomUser(models.Model):
     username = models.CharField(max_length=255)
     password = models.CharField(max_length=255)
+    email = models.EmailField(max_length=254, unique=True, null=False, blank=False)
 
     def __str__(self):
         return self.username
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    customuser = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='profiles', null=True)
     favorite_eateries = models.ManyToManyField(Eatery, blank=True, related_name='favorited_by')
     favorite_hotspots = models.ManyToManyField(Hotspot, blank=True, related_name='favorited_by')
     bookmarked_hotspots = models.ManyToManyField(Hotspot, blank=True, related_name='bookmarked_by')
     bookmarked_eateries = models.ManyToManyField(Eatery, blank=True, related_name='bookmarked_by')
 
     def __str__(self):
-        return self.user
+        return self.customuser.username
 

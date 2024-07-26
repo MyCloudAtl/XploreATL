@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.db.models import Avg
-from .models import Eatery, Hotspot, Profile, Location, User, Rating
+from .models import Eatery, Hotspot, Profile, Location, CustomUser, Rating
 
 class EaterySerializer(serializers.HyperlinkedModelSerializer):
     location = serializers.HyperlinkedRelatedField(
@@ -41,14 +41,21 @@ class HotspotSerializer(serializers.HyperlinkedModelSerializer):
         return round(avg_rating, 2) if avg_rating else 'No ratings yet'
     
 class ProfileSerializer(serializers.HyperlinkedModelSerializer):
-    user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+    customuser = serializers.HyperlinkedRelatedField(
+        view_name='customuser_detail',
+        read_only=True
+    )
+    customuser_id = serializers.PrimaryKeyRelatedField(
+        queryset=CustomUser.objects.all(),
+        source='customuser'
+    )
     favorite_eateries = EaterySerializer(many=True, read_only=True)
     favorite_hotspots = HotspotSerializer(many=True, read_only=True)
     bookmarked_eateries = EaterySerializer(many=True, read_only=True)
     bookmarked_hotspots = HotspotSerializer(many=True, read_only=True)
     class Meta:
         model = Profile
-        fields = ['user','favorite_eateries', 'favorite_hotspots', 'bookmarked_eateries', 'bookmarked_hotspots']
+        fields = ['customuser', 'customuser_id','favorite_eateries', 'favorite_hotspots', 'bookmarked_eateries', 'bookmarked_hotspots']
 
 class RatingSerializer(serializers.ModelSerializer):
     class Meta:
@@ -70,7 +77,11 @@ class LocationSerializer(serializers.HyperlinkedModelSerializer):
         model = Location
         fields = ['id', 'county', 'state']
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class CustomUserSerializer(serializers.HyperlinkedModelSerializer):
+    profile = ProfileSerializer(
+        many=True,
+        read_only=True
+    )
     class Meta:
-        model = User
-        fields = ('id', 'username', 'password')
+        model = CustomUser
+        fields = ('id', 'username', 'password', 'email','profile')

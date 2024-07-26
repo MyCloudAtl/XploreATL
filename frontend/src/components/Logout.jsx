@@ -9,7 +9,7 @@ const Logout = () => {
     
     const handleLogout = async () => {
         try {
-            const response = await axios.post('http://localhost:8000/users/${id}');
+            const response = await axios.post('http://localhost:8000/customusers/');
             setMessage(response.data.message);
             navigate('/')
         } catch (error) {

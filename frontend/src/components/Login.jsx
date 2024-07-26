@@ -12,7 +12,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
       e.preventDefault();
       try {
-        const response = await axios.get('http://localhost:8000/users/', { username, password });
+        const response = await axios.get('http://localhost:8000/customusers/', { username, password });
             setMessage(response.data.message);
             navigate('/');
       } catch (error) {

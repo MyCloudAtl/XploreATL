@@ -12,6 +12,7 @@ import Login from './components/Login'
 import Logout from './components/Logout'
 import SideBar from './components/SideBar'
 import RegisterForm from './components/RegisterForm'
+// import Opening from './components/Opening'
 
 function App() {
 
@@ -28,6 +29,9 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<RegisterForm />} />
                 <Route path="/logout" element={<Logout />} />
+                <Route path="/user/:id" element={<SideBar />} />
+                <Route path="/sidebar" element={<SideBar />} />
+                {/* <Route path="/" element={<Opening currentUser={currentUser} />} /> */}
         </Routes>
       </div>
   )
