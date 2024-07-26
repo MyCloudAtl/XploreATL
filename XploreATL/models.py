@@ -69,5 +69,5 @@ class Profile(models.Model):
     bookmarked_eateries = models.ManyToManyField(Eatery, blank=True, related_name='bookmarked_by')
 
     def __str__(self):
-        return self.user.username
+        return self.user
 

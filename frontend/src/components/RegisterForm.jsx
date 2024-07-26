@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 const RegisterForm = () => {
+    let navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -21,6 +23,7 @@ const RegisterForm = () => {
                 password
             });
             setMessage(response.data.message);
+            navigate('/login');
         } catch (error) {
             setMessage('Registration failed');
         }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 export default function SideBar() {
 const [eateries, setEateries] = useState([])
@@ -9,6 +9,9 @@ const [tasks, setTasks] = useState([])
 const [taskInput, setTaskInput] = useState('')
 const [editingTask, setEditingTask] = useState(null)
 const [taskEditIndex, setTaskEditIndex] = useState(null)
+const [user, setUser] = useState(null);
+const [loading, setLoading] = useState(true);
+const navigate = useNavigate();
 
 useEffect(() => {
   const companyData = async () => {
@@ -56,11 +59,48 @@ const handleDeleteClick = (index) => {
     setTaskEditIndex(null)
   }
 }
+useEffect(() => {
+    const getUser = async () => {
+      try {
+          const response = await axios.get('http://localhost:8000/users/')
+          setUser(response.data)
+          console.log(user)
+          setLoading(false)
+      } catch (error) {
+          console.error('Error fetching user data:', error)
+          setLoading(false)
+      }
+  }
+  getUser()
+}, [])
+  if (loading) {
+      return <p>Loading...</p>;
+  }
 
+  if (!user) {
+      return <p>No user data available.</p>;
+  }
 
+console.log(user[0])
 return (
   <div className="Sidebar">
-      <h1>Eateries</h1>
+      {user ? (
+        <div className='UserLink'>
+          <h1 className="Greeting">Nice to have you back, {user[0].username}</h1>
+          <div className="Logout">
+            <Link to="/logout">Logout</Link>
+          </div>
+        </div>
+      ) : (
+        <div className='AuthLinks'>
+          <Link to="/login">Login</Link>
+          <Link to="/register">Create User</Link>
+        </div>
+      )}
+    </div>
+  )
+}
+      {/* <h1>Eateries</h1>
       <ul>
         {eateries.map(eatery => (
           <li key={eatery.id}>
@@ -106,7 +146,5 @@ return (
             <button onClick={() => handleDeleteClick(index)} className="delete">Delete</button>
           </li>
         ))}
-      </ul>
-    </div>
-  );
-}
+      </ul> */}
+ 

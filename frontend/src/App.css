@@ -3,8 +3,9 @@
   max-width: 100%;
   box-sizing: border-box;
   padding: 1rem;
+  background: linear-gradient(#870000, #859398);
   text-align: center;
-  background-color: bisque;
+  background-color: linear-gradient(#870000, #859398);
 }
 
 .logo {
@@ -43,7 +44,7 @@
   color: #888;
 }
 body{
-  background-color: hotpink;
+  background-color: linear-gradient(#870000, #859398);
 }
 .App {
   display: flex;
@@ -64,14 +65,15 @@ body{
 .Main {
   display: flex;
   width: 100%;
-  background-color: gray;
+  background-image: linear-gradient(#870000, #859398);
   gap: 1em;
 }
 .Header{
   display: flex;
   padding: 1em;
   flex-direction: column;
-  background-color: yellow;
+  /* background-image: linear-gradient(#FFEFBA, #ffffff); */
+  background-image: linear-gradient(rgba(255, 239, 186, 0.9), rgba(255, 255, 255, 0.5));
 }
 .Nav{
   display: flex;
@@ -79,25 +81,25 @@ body{
   justify-content: center;
   align-self: flex-start;
   padding: 1em;
-  background-color: blue;
+  /* background-color: blue; */
 }
 .NavBar{
   display: flex;
   width: 100%;
   justify-content: space-evenly;
-  background-color: black;
+  /* background-color: black; */
 }
 .Body{
   display: flex;
   width: 100vw;
   flex: 2;
-  background-color: yellowgreen;
+  background-image: linear-gradient(#870000, #859398);
 }
 .Side{
   display: flex;
   padding: 1em;
   flex-direction: column;
-  background-color: orange;
+  background-image: linear-gradient(rgba(255, 239, 186, 0.9), rgba(255, 255, 255, 0.5));
 }
 .Footer {
   width: 100%;
@@ -105,7 +107,7 @@ body{
   align-items: flex-end;
   position: fixed;
   bottom: 0;
-  background-color: hotpink;
+  /* background-color: hotpink; */
 }
 .Credits{
   display: flex;

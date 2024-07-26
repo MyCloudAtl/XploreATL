@@ -2,10 +2,10 @@ from django.shortcuts import render
 from rest_framework import generics
 from .serializers import EaterySerializer, HotspotSerializer, ProfileSerializer, LocationSerializer, UserSerializer, RatingSerializer
 from .models import Eatery, Hotspot, Location, Profile, User, Rating
-from rest_framework.decorators import api_view
+from django.contrib.auth.models import User
+from rest_framework import status
 from rest_framework.response import Response
-from users.models import User
-from users.serializers import UserSerializer
+from rest_framework.decorators import api_view
 
 class EateryList(generics.ListCreateAPIView):
     queryset = Eatery.objects.all()
@@ -53,13 +53,15 @@ class UserList(generics.ListCreateAPIView):
 
 @api_view(['POST'])
 def user_list(request):
-    print (request.data)
+    # print (request.data)
     if request.method == 'POST': 
         serializer = UserSerializer(User, data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors)
+        #     return Response(serializer.data)
+        # return Response(serializer.errors)
+            return Response({'message': 'User created successfully!'}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()

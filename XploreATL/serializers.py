@@ -71,11 +71,6 @@ class LocationSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['id', 'county', 'state']
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
-    profile = serializers.HyperlinkedRelatedField(
-        view_name='profile_detail',  
-        queryset=Profile.objects.all()
-    )
-
     class Meta:
         model = User
-        fields = ('username', 'password', 'profile')
+        fields = ('id', 'username', 'password')
