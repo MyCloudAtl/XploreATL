@@ -2,6 +2,10 @@ from django.shortcuts import render
 from rest_framework import generics
 from .serializers import EaterySerializer, HotspotSerializer, ProfileSerializer, LocationSerializer, UserSerializer, RatingSerializer
 from .models import Eatery, Hotspot, Location, Profile, User, Rating
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from users.models import User
+from users.serializers import UserSerializer
 
 class EateryList(generics.ListCreateAPIView):
     queryset = Eatery.objects.all()
@@ -47,10 +51,20 @@ class UserList(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-class UserDetail(generics.ListCreateAPIView):
+@api_view(['POST'])
+def user_list(request):
+    print (request.data)
+    if request.method == 'POST': 
+        serializer = UserSerializer(User, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)
+
+class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-
+    
 def profile(request):
     return render(request, 'profile.html')

@@ -8,7 +8,9 @@ import HotSpotList from './components/HotSpotList'
 import Locations from './components/Locations'
 import RatingForm from './components/RatingForm'
 import CreateRating from './components/CreateRating'
+import Login from './components/Login'
 import SideBar from './components/SideBar'
+import RegisterForm from './components/RegisterForm'
 
 function App() {
 
@@ -22,6 +24,8 @@ function App() {
                 <Route path="/hotspots/:id" element={<HotSpotCard />} />
                 <Route path="/locations" element={<Locations />} />
                 <Route path="/ratings/:id" element={<CreateRating />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<RegisterForm />} />
         </Routes>
       </div>
   )

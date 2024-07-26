@@ -11,4 +11,6 @@ urlpatterns = [
     path('locations/<int:pk>', views.LocationDetail.as_view(), name="location_detail"),
     path('ratings/', views.RatingList.as_view(), name="rating_list"),
     path('ratings/<int:pk>', views.RatingDetail.as_view(), name="rating_detail"),
+    path('users/', views.UserList.as_view(), name="user_list"),
+    path('users/<int:pk>', views.UserDetail.as_view(), name="user_detail"),
 ]
