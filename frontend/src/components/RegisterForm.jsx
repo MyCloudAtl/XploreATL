@@ -4,10 +4,11 @@ import { useNavigate } from "react-router-dom";
 
 const RegisterForm = () => {
     let navigate = useNavigate();
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [message, setMessage] = useState('');
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+    const [email, setEmail] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
+    const [message, setMessage] = useState('')
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -20,15 +21,15 @@ const RegisterForm = () => {
         try {
             const response = await axios.post('http://localhost:8000/customusers/', {
                 username,
-                password
+                password,
+                email
             });
-            setMessage(response.data.message);
+            setMessage(response.data.message || 'Registration successful');
             navigate('/login');
         } catch (error) {
             setMessage('Registration failed');
         }
     };
-
     return (
         <form onSubmit={handleSubmit}>
             <h2>Register</h2>
@@ -59,10 +60,18 @@ const RegisterForm = () => {
                     required
                 />
             </div>
+            <div>
+                <label>Email:</label>
+                <input
+                    type="text"
+                    name={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                />
+            </div>
             <button type="submit">Register</button>
             <p>{message}</p>
         </form>
     );
 };
-
 export default RegisterForm;

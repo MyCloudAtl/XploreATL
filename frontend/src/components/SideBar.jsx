@@ -4,13 +4,13 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useParams } from "react-router-dom";
 
 export default function SideBar() {
-const {id} = useParams()
-const [user, setUser] = useState(null)
-const [loading, setLoading] = useState(true)
-const [username, setUsername] = useState('');
-const [password, setPassword] = useState('');
-const [message, setMessage] = useState('');
-const navigate = useNavigate()
+  const {id} = useParams()
+  const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
+  const navigate = useNavigate()
 
 
 useEffect(() => {
@@ -27,7 +27,7 @@ useEffect(() => {
       }
   }
   getUser()
-}, [])
+}, [id])
   if (loading) {
       return <p>Loading...</p>;
   }
@@ -56,7 +56,7 @@ return (
   <div className="Sidebar">
       {/* {user ? ( */}
         <div className='UserLink'>
-          <h1 className="Greeting">Nice to have you back, {user.username}</h1>
+          <h1 className="Greeting">Nice to have you back, {username}</h1>
           {/* <div className="Logout">
             <Link to="/logout">Logout</Link>
           </div> */}
